@@ -225,8 +225,6 @@ class MedicamentAPITest(TestCase):
             ordonnance_requise=True
         )
         url = reverse('alertes-stock')
-        print(f"\nDEBUG: Testing URL -> {url}") 
         response = self.client.get(url)
-        print(f"DEBUG: Status Code -> {response.status_code}")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)

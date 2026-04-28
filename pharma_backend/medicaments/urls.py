@@ -12,6 +12,5 @@ urlpatterns = [
     path('form/<str:forme>/', medicament_by_form, name='medicament-by-form'),
     path('ordonnance/<str:ordonnance_requise>/', medicament_by_ordonnance, name='medicament-by-ordonnance'),
     path('search/<str:nom>/', recherche_medicament, name='recherche-medicament'),
-    
     path('', include(router.urls)),
 ]
