@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.test import Client
+from django.urls import reverse
 
 from .models import Medicament
 from categories.models import Category
@@ -121,3 +122,111 @@ class MedicamentAPITest(TestCase):
         response = self.client.delete(f'/api/medicaments/{pk}/')
         self.assertEqual(response.status_code, 204)
         self.assertFalse(Medicament.objects.filter(pk=pk).exists())
+
+    def test_medicament_by_category(self):
+        medicament = Medicament.objects.create(
+            nom='Amoxicilline',
+            dci='Amoxicillin',
+            categorie=self.category,
+            form='Comprimé',
+            dosage='500mg',
+            prix_achat=10.00,
+            prix_vente=15.00,
+            stock_actuel=100,
+            stock_minimum=20,
+            date_expiration='2025-12-31',
+            ordonnance_requise=True
+        )
+        response = self.client.get(f'/api/medicaments/category/{self.category.nom}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['nom'], 'Amoxicilline')
+
+    def test_medicament_by_form(self):
+        medicament = Medicament.objects.create(
+            nom='Amoxicilline',
+            dci='Amoxicillin',
+            categorie=self.category,
+            form='Comprimé',
+            dosage='500mg',
+            prix_achat=10.00,
+            prix_vente=15.00,
+            stock_actuel=100,
+            stock_minimum=20,
+            date_expiration='2025-12-31',
+            ordonnance_requise=True
+        )
+        response = self.client.get(f'/api/medicaments/form/{medicament.form}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['form'], 'Comprimé')
+
+    def test_medicament_by_ordonnance(self):
+        medicament = Medicament.objects.create(
+            nom='Amoxicilline',
+            dci='Amoxicillin',
+            categorie=self.category,
+            form='Comprimé',
+            dosage='500mg',
+            prix_achat=10.00,
+            prix_vente=15.00,
+            stock_actuel=100,
+            stock_minimum=20,
+            date_expiration='2025-12-31',
+            ordonnance_requise=True
+        )
+        response = self.client.get(f'/api/medicaments/ordonnance/{medicament.ordonnance_requise}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertTrue(response.data[0]['ordonnance_requise'])
+
+    def test_recherche_medicament(self):
+        medicament = Medicament.objects.create(
+            nom='Amoxicilline',
+            dci='Amoxicillin',
+            categorie=self.category,
+            form='Comprimé',
+            dosage='500mg',
+            prix_achat=10.00,
+            prix_vente=15.00,
+            stock_actuel=100,
+            stock_minimum=20,
+                date_expiration='2025-12-31',
+            ordonnance_requise=True
+        )
+        url = reverse('recherche-medicament', kwargs={'nom': 'Amoxicilline'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['nom'], 'Amoxicilline')
+        self.assertEqual(response.data[0]['dci'], 'Amoxicillin')
+        self.assertEqual(response.data[0]['categorie'], self.category.pk)
+        self.assertEqual(response.data[0]['form'], 'Comprimé')
+        self.assertEqual(response.data[0]['dosage'], '500mg')
+        self.assertEqual(float(response.data[0]['prix_achat']), 10.00)
+        self.assertEqual(float(response.data[0]['prix_vente']), 15.00)
+        self.assertEqual(response.data[0]['stock_actuel'], 100)
+        self.assertEqual(response.data[0]['stock_minimum'], 20)
+        self.assertEqual(response.data[0]['date_expiration'], '2025-12-31')
+        self.assertTrue(response.data[0]['ordonnance_requise'])
+
+    def test_alertes_stock(self):
+        medicament = Medicament.objects.create(
+            nom='Amoxicilline',
+            dci='Amoxicillin',
+            categorie=self.category,
+            form='Comprimé',
+            dosage='500mg',
+            prix_achat=10.00,
+            prix_vente=15.00,
+            stock_actuel=10,
+            stock_minimum=20,
+            date_expiration='2025-12-31',
+            ordonnance_requise=True
+        )
+        url = reverse('alertes-stock')
+        print(f"\nDEBUG: Testing URL -> {url}") 
+        response = self.client.get(url)
+        print(f"DEBUG: Status Code -> {response.status_code}")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
