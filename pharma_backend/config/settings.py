@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': os.environ.get('DATABASE_HOST'),
+        'HOST': 'db',
         'PORT': os.environ.get('DATABASE_PORT') ,
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DATABASE_NAME'),
