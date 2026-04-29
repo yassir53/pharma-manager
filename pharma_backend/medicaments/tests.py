@@ -1,14 +1,16 @@
-from django.test import TestCase
+from rest_framework.test import APITestCase
 from django.test import Client
 from django.urls import reverse
 
 from .models import Medicament
 from categories.models import Category
+from django.contrib.auth.models import User
 
-
-class MedicamentAPITest(TestCase):
+class MedicamentAPITest(APITestCase):
     def setUp(self):
-        self.client = Client()
+        self.user = User.objects.create_user(username='admin', password='password123')
+        
+        self.client.force_authenticate(user=self.user)
         self.category = Category.objects.create(nom='Antibiotiques')
 
     def test_medicament_list(self):
