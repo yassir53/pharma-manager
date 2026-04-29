@@ -5,6 +5,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import { Routes, Route, Navigate ,BrowserRouter} from 'react-router-dom';
 import Login from './pages/login';
+import Dashboard from './pages/Dashboard';
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        </Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </BrowserRouter>
 
   </>
