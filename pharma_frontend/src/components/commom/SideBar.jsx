@@ -11,7 +11,7 @@ const SideBar = () => {
       };
       const HandleMédicamentClick = () => {
         if(localStorage.getItem('access_token') || localStorage.getItem('refresh_token')) {
-          window.location.href = '/médicament';
+          window.location.href = '/medicaments';
         } else {
           window.location.href = '/';
         }

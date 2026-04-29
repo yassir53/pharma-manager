@@ -6,6 +6,8 @@ import './App.css'
 import { Routes, Route, Navigate ,BrowserRouter} from 'react-router-dom';
 import Login from './pages/login';
 import Dashboard from './pages/Dashboard';
+import Medicaments from './pages/Medicaments';
+import Vente from './pages/Vente';
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/medicaments" element={<Medicaments />} />
+        <Route path="/vente" element={<Vente />} />
       </Routes>
     </BrowserRouter>
 

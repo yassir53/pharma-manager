@@ -25,7 +25,7 @@ class VenteSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        lignes_data = validated_data.pop('lignes_vente', []) # Safe pop
+        lignes_data = validated_data.pop('lignes_vente', []) 
         
         with transaction.atomic():
             total_ttc = sum(item['quantite'] * item['prix_unitaire'] for item in lignes_data)
@@ -47,20 +47,15 @@ class VenteSerializer(serializers.ModelSerializer):
                     **ligne_data
                 )
 
-        return vente # CRITICAL: This was likely missing or outside the block[cite: 11]
+        return vente 
 
     def update(self, instance, validated_data):
-        """
-        Handle nested update. The View manually handles the 'articles' logic,
-        so we just update the basic fields of the Vente here.
-        """
-        # Remove nested data so DRF doesn't try to save it automatically
+      
         validated_data.pop('lignes_vente', None)
         validated_data.pop('articles', None) 
         
-        # Update Vente instance fields (note, status, etc.)
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         
         instance.save()
-        return instance # CRITICAL: Must return the instance[cite: 14]
+        return instance 
