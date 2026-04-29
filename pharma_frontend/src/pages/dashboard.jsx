@@ -84,7 +84,6 @@ const Dashboard = () => {
                     boxSizing: 'border-box'
                 }}
             >
-                {/* Dashboard Header */}
                 <Box sx={{ mb: 6, display: 'flex', alignItems: 'center', gap: 2 }}>
                     <DashIcon sx={{ color: '#1e293b', fontSize: 32 }} />
                     <Typography variant="h4" sx={{ fontWeight: 800, color: '#1e293b' }}>
@@ -107,7 +106,6 @@ const Dashboard = () => {
                 </Box>
 
                 <Grid container spacing={4} sx={{ width: '100%', margin: 0 }}>
-                    {/* ALERT SECTION */}
                     <Grid item xs={12} lg={5} sx={{ pl: '0 !important', pt: '0 !important' }}>
                         <Card sx={{ p: 3, borderRadius: 4, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', height: '100%' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 4 }}>
@@ -125,7 +123,6 @@ const Dashboard = () => {
                         </Card>
                     </Grid>
 
-                    {/* VENTES SECTION */}
                     <Grid item xs={12} lg={7}>
                         <Card sx={{ p: 3, borderRadius: 4, boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', height: '100%' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 4 }}>
@@ -179,7 +176,7 @@ const Dashboard = () => {
                     open={openVenteDialog} 
                     onClose={() => { setOpenVenteDialog(false); setEditingVente(null); }} 
                     onSuccess={handleSearchVentes} 
-                    vente={editingVente} // Passes existing sale for update[cite: 14]
+                    vente={editingVente} 
                 />
             </Box>
         </Box>

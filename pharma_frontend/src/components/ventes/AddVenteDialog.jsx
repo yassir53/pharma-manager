@@ -64,7 +64,6 @@ const AddVenteDialog = ({ open, onClose, onSuccess, vente }) => {
             }));
 
             if (isEdit) {
-                // We send 'articles' for the custom View and 'lignes_vente' for the Serializer
                 const payload = { 
                     note, 
                     status: vente.status, 
@@ -87,7 +86,6 @@ const AddVenteDialog = ({ open, onClose, onSuccess, vente }) => {
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-            {/* component="h2" + component="span" avoids <h6> nested in <h2> */}
             <DialogTitle component="h2" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <ShoppingCart color="primary" />
                 <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>

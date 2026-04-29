@@ -62,7 +62,7 @@ export const deleteMedicament = async (nom) => {
 
 export const getAllCategories = async () => {
     try {
-        const response = await api.get('/categories/'); // Adjust path to your actual category URL
+        const response = await api.get('/categories/'); 
         return response.data;
     } catch (error) {
         console.error('Error fetching categories:', error);

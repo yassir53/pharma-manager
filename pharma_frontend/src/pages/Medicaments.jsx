@@ -21,7 +21,7 @@ const Medicaments = () => {
     const [editingMed, setEditingMed] = useState(null);
     const [notification, setNotification] = useState({ open: false, message: '', severity: 'success' });
 
-    const drawerWidth = 256; //[cite: 11]
+    const drawerWidth = 256; 
 
     useEffect(() => {
         loadData();
@@ -31,7 +31,7 @@ const Medicaments = () => {
     const loadData = async () => {
         setLoading(true);
         try {
-            const data = await getAllMedicaments(); //[cite: 13]
+            const data = await getAllMedicaments(); 
             setMedicaments(data || []);
             if (data?.length > 0 && !selectedMed) setSelectedMed(data[0]);
         } catch (err) {
@@ -55,7 +55,7 @@ const Medicaments = () => {
         if (!selectedMed) return;
         if (window.confirm(`Supprimer ${selectedMed.nom} ?`)) {
             try {
-                await deleteMedicament(selectedMed.nom); //[cite: 13, 15]
+                await deleteMedicament(selectedMed.nom); 
                 showNotification('Médicament supprimé');
                 setSelectedMed(null);
                 loadData();

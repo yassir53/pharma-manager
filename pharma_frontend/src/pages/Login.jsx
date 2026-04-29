@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-8 shadow-xl rounded-xl">
-        {/* Logo & Header */}
+        
         <Box className="flex flex-col items-center mb-8">
           <div className="bg-blue-600 p-3 rounded-full mb-4">
             <LocalPharmacy className="text-white text-3xl" />
@@ -52,7 +52,6 @@ const Login = () => {
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <TextField
             fullWidth

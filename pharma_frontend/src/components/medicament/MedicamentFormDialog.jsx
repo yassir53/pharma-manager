@@ -10,11 +10,10 @@ import { createMedicament, updateMedicament } from '../../api/medicamentAPI';
 const MedicamentFormDialog = ({ open, onClose, onSuccess, medicament, categories }) => {
     const isEdit = Boolean(medicament);
     
-    // Default state to ensure components remain 'controlled' from the start
     const initialState = {
         nom: '', 
         dci: '', 
-        categorie: '', // Ensure this is '' and not undefined
+        categorie: '', 
         form: '', 
         dosage: '',
         prix_achat: 0, 
@@ -33,7 +32,6 @@ const MedicamentFormDialog = ({ open, onClose, onSuccess, medicament, categories
         if (open) {
             setErrors({});
             if (medicament) {
-                // Merge medicament data with initialState to ensure no undefined fields
                 setFormData({ ...initialState, ...medicament });
             } else {
                 setFormData(initialState);
@@ -54,7 +52,6 @@ const MedicamentFormDialog = ({ open, onClose, onSuccess, medicament, categories
         setErrors({});
         
         try {
-            // Sanitize data: Django Decimal/Integer fields hate empty strings
             const sanitizedData = {
                 ...formData,
                 prix_achat: parseFloat(formData.prix_achat) || 0,
@@ -74,7 +71,6 @@ const MedicamentFormDialog = ({ open, onClose, onSuccess, medicament, categories
             onClose();
         } catch (err) {
             console.error("Save Error:", err.response?.data);
-            // Set error state to display field-specific errors in the UI
             setErrors(err.response?.data || { detail: "Erreur lors de l'enregistrement" });
         } finally {
             setLoading(false);
